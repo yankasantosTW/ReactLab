@@ -6,14 +6,14 @@ export default function AvailablePlaces({ onSelectPlace }) {
 
   //Using the UseEffect to to fetch the data once the component is mounted
   useEffect(()=> {
-    //fetch it's a promise that returns a response object with data from API calls
-    fetch('http://localhost:3000/places')
-    .then((response)=>{
-      return response.json();
-    })
-    .then((responseData)=>{
+    //Refectoring the fetch to create a function using the async await
+    async function fetchPlaces(){
+      const response = await fetch('http://localhost:3000/places');
+      const responseData = await response.json();
       setAvailablePlaces(responseData.places);
-    });
+    }
+
+    fetchPlaces();
   }, []);
 
   return (
